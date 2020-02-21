@@ -1,8 +1,10 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/core";
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {css, jsx} from '@emotion/core';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+const random = require('random');
+const shuffle = require('fisher-yates')
 
 function Identify() {
 
@@ -73,7 +75,7 @@ function Identify() {
           // randomly select an image from the results
           const obj = await results.json();
           const photosLength = obj.photos.photo.length;
-          const photoIndex = Math.floor(Math.random() * photosLength);
+          const photoIndex = random.int(0, photosLength - 1);
           console.log("Photo array size:", photosLength, " (", photoIndex + 1,")");
           const photo = obj.photos.photo[photoIndex];
           const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
@@ -90,7 +92,6 @@ function Identify() {
 
     }
 
-    // randomly get four types of an animal
     let animals = [];
     switch(group) {
       case "Bird":
@@ -111,11 +112,6 @@ function Identify() {
     fetchImage(animals);
 
   }, [score, group]);
-
-  function shuffle(array) {
-    const newArray = array.slice().sort(() => Math.random() - 0.5);
-    return newArray;
-  }
 
   function guess(animal) {
     if(!loading) {
