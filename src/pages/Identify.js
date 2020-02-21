@@ -9,7 +9,8 @@ function Identify() {
   const [image, setImage] = useState("");
   const key = "f88afdf32072ce175c0cd9dcdec38def";
   const secret = "a72b00f22fead75e";
-  const birdTypes = [""]
+  const birdTypes = ["sparrow", "owl", "robin", "pigeon"];
+  const birdLength = birdTypes.length;;
 
   const styleHeader = css`
     margin: 20px 10px 20px 10px;
@@ -24,14 +25,18 @@ function Identify() {
     setLoading(true);
     try {
 
+      // randomly select a type of animal
+      const animalLength = birdLength;
+      const correctAnimal = birdTypes[Math.floor(Math.random() * animalLength)];
+
       const getUrl = `https://api.flickr.com/services/rest/?method=` +
-      `flickr.photos.search&api_key=${key}&tags=bird,sparrow&tag_mode=all&` +
+      `flickr.photos.search&api_key=${key}&tags=bird,${correctAnimal}&tag_mode=all&` +
       `per_page=500&media=photos&format=json&nojsoncallback=1`;
 
       const results = await fetch(getUrl);
 
       if (results.ok) {
-        // pick an image from the results
+        // randomly select an image from the results
         const obj = await results.json();
         const photosLength = obj.photos.photo.length;
         const photo = obj.photos.photo[Math.floor(Math.random() * photosLength)];
@@ -40,8 +45,7 @@ function Identify() {
         setImage(photoUrl);
       } else {
         // we got a bad status code. Show the error
-        //const obj = await results.json();
-        console.log(results);
+        console.log("Error, could not get photo.");
       }
     } catch (err) {
       console.log(err);
