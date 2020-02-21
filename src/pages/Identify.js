@@ -20,8 +20,12 @@ function Identify() {
   const catTypes = ["Persian", "Ragdoll", "Maine Coon", "Siamese", "American Shorthair",
     "Burmese", "Himalayan", "Exotic Shorthair", "Russian Blue", "Savannah", "Scottish Fold",
     "Sphynx", "Bengal", "Manx"];
-  const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian"];
-  const fishTypes = ["Shark", "Goldfish", "Carp", "Bass"];
+  const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian", "Pug", "Shiba Inu", "Golden Retriever",
+    "German Shepherd", "Poodle", "Chihuahua", "Beagle", "Rottweiler", "Maltese", "Dachshund",
+    "Dobermann", "Chow Chow", "Shih Tzu", "Great Dane", "Newfoundland", "Corgi", "St. Bernard",
+    "Greyhound", "Schnauzer", "Boston Terrier", "Dalmatian"];
+  const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish", "Seahorse",
+    "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
   const styleHeader = css`
     margin: auto;
@@ -70,8 +74,7 @@ function Identify() {
           const obj = await results.json();
           const photosLength = obj.photos.photo.length;
           const photoIndex = Math.floor(Math.random() * photosLength);
-          console.log("Photo array size:", photosLength);
-          console.log("Selected photo:", photoIndex + 1);
+          console.log("Photo array size:", photosLength, " (", photoIndex + 1,")");
           const photo = obj.photos.photo[photoIndex];
           const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
             `${photo.id}_${photo.secret}.jpg`
