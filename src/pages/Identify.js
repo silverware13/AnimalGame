@@ -23,7 +23,7 @@ function Identify() {
   const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian", "Pug", "Shiba Inu", "Golden Retriever",
     "German Shepherd", "Poodle", "Chihuahua", "Beagle", "Rottweiler", "Maltese", "Dachshund",
     "Dobermann", "Chow Chow", "Shih Tzu", "Great Dane", "Newfoundland", "Corgi", "St. Bernard",
-    "Greyhound", "Schnauzer", "Boston Terrier", "Dalmatian"];
+    "Greyhound", "Border Collie", "Boston Terrier", "Dalmatian"];
   const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish", "Seahorse",
     "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
