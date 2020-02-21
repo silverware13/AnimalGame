@@ -3,8 +3,6 @@ import { Global, css } from '@emotion/core';
 import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import News from './pages/News';
-import About from './pages/About';
 import Identify from './pages/Identify';
 
 const globalStyles = css`

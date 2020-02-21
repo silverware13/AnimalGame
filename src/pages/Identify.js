@@ -2,23 +2,26 @@
 
 import {css, jsx} from "@emotion/core";
 import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 function Identify() {
 
+  const {group} = useParams();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [score, setScore] = useState(0);
   const [correctAnimal, setCorrectAnimal] = useState("");
-  const [wrongAnimals, setWrongAnimals] = useState(["", "", ""]);
   const [buttonAnimals, setButtonAnimals] = useState(["", "", "", ""]);
   const key = "f88afdf32072ce175c0cd9dcdec38def";
   const birdTypes = ["Sparrow", "Owl", "Robin", "Pigeon", "Duck", "Goose",
     "Eagle", "Hummingbird", "Finch", "Chicken", "Turkey", "Parrot", "Canary", 
     "Dove", "Toucan", "Quail", "Heron", "Roadrunner", "Cardinal", "Gull", "Albatross",
     "Willet"];
-    const catTypes = ["Tiger", "Lion", "Lynx", "Cheetah"];
-    const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian"];
-    const fishTypes = ["Koi", "Goldfish", "Carp", "Bass"];
+  const catTypes = ["Persian", "Ragdoll", "Maine Coon", "Siamese", "American Shorthair",
+    "Burmese", "Himalayan", "Exotic Shorthair", "Russian Blue", "Savannah", "Scottish Fold",
+    "Sphynx", "Bengal", "Manx"];
+  const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian"];
+  const fishTypes = ["Shark", "Goldfish", "Carp", "Bass"];
 
   const styleHeader = css`
     margin: auto;
@@ -54,11 +57,10 @@ function Identify() {
   
         // select the correct and incorrect animals
         setCorrectAnimal(animals[0]);
-        setWrongAnimals([animals[1], animals[2], animals[3]]);
         setButtonAnimals(shuffle([animals[0], animals[1], animals[2], animals[3]]));
   
         const getUrl = `https://api.flickr.com/services/rest/?method=` +
-        `flickr.photos.search&api_key=${key}&tags=bird,${animals[0]}&tag_mode=all&` +
+        `flickr.photos.search&api_key=${key}&tags=${group},${animals[0]}&tag_mode=all&` +
         `per_page=100&media=photos&format=json&nojsoncallback=1`;
   
         const results = await fetch(getUrl);
@@ -67,7 +69,10 @@ function Identify() {
           // randomly select an image from the results
           const obj = await results.json();
           const photosLength = obj.photos.photo.length;
-          const photo = obj.photos.photo[Math.floor(Math.random() * photosLength)];
+          const photoIndex = Math.floor(Math.random() * photosLength);
+          console.log("Photo array size:", photosLength);
+          console.log("Selected photo:", photoIndex + 1);
+          const photo = obj.photos.photo[photoIndex];
           const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
             `${photo.id}_${photo.secret}.jpg`
           setImage(photoUrl);
@@ -83,10 +88,26 @@ function Identify() {
     }
 
     // randomly get four types of an animal
-    const animals = shuffle(birdTypes);
+    let animals = [];
+    switch(group) {
+      case "Bird":
+        animals = shuffle(birdTypes);
+        break;
+      case "Cat":
+        animals = shuffle(catTypes);
+        break;
+      case "Dog":
+        animals = shuffle(dogTypes);
+        break;
+      case "Fish":
+        animals = shuffle(fishTypes);
+        break;
+      default:
+        animals = shuffle(birdTypes);
+    }
     fetchImage(animals);
 
-  }, [score]);
+  }, [score, group]);
 
   function shuffle(array) {
     const newArray = array.slice().sort(() => Math.random() - 0.5);
@@ -94,7 +115,6 @@ function Identify() {
   }
 
   function guess(animal) {
-    console.log(animal);
     if(!loading) {
       if(animal === correctAnimal) {
         setScore(score + 1);
@@ -108,7 +128,7 @@ function Identify() {
   return (
     <div css={styleHeader}>
       <img id={"guess-image"} src={image} alt="Guess this animal" />
-      <h1>Identify this Bird</h1>
+      <h1>Identify this {group}</h1>
       <h2>Score: {score}</h2>
       <div className="button-box">
         <button className="button-guess" onClick={() => guess(buttonAnimals[0])}>
