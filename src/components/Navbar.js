@@ -16,22 +16,6 @@ function Navbar(props) {
       background-color: #3B3B3B;
     }
 
-    .left-bar {
-      display: inline-block;
-      margin: 0;
-      text-align: left;
-      vertical-align: middle;
-      width: 50%;
-    }
-
-    .right-bar {
-      display: inline-block;
-      margin: 0;
-      text-align: right;
-      vertical-align: middle;
-      width: 50%;
-    }
-
     .link-container {
       margin: 0;
       text-align: center;
@@ -158,66 +142,62 @@ function Navbar(props) {
         <button className="close-navdrawer-button" onClick={() => {setActiveClass(false)}}> 
           &#x276E;
         </button>
-        <div className="left-bar">
-          <NavLink to="/">
+          <NavLink to="/identify/Bird">
             <Switch>
-              <Route exact path="/">
+              <Route path="/identify/Bird">
                 <div className="link-container active-link-container">
-                  <p className="link-text">Home</p>
+                  <p className="link-text">Bird</p>
                 </div>
               </Route>
               <Route path="*">
                 <div className="link-container">
-                  <p className="link-text">Home</p>
+                  <p className="link-text">Bird</p>
                 </div>
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/news">
+          <NavLink to="/identify/Cat">
             <Switch>
-              <Route exact path="/news">
+              <Route path="/identify/Cat">
                 <div className="link-container active-link-container">
-                  <p className="link-text">News</p>
+                  <p className="link-text">Cat</p>
                 </div>
               </Route>
               <Route path="*">
                 <div className="link-container">
-                  <p className="link-text">News</p>
+                  <p className="link-text">Cat</p>
                 </div>
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/about">
+          <NavLink to="/identify/Dog">
             <Switch>
-              <Route exact path="/about">
+              <Route path="/identify/Dog">
                 <div className="link-container active-link-container">
-                  <p className="link-text">About</p>
+                  <p className="link-text">Dog</p>
                 </div>
               </Route>
               <Route path="*">
                 <div className="link-container">
-                  <p className="link-text">About</p>
+                  <p className="link-text">Dog</p>
                 </div>
               </Route>
             </Switch>
           </NavLink>
-        </div>
-        <div className="right-bar">
-          <NavLink to="/login">
+          <NavLink to="/identify/Fish">
             <Switch>
-              <Route exact path="/login">
+              <Route path="/identify/Fish">
                 <div className="link-container active-link-container">
-                  <p className="link-text">Identify</p>
+                  <p className="link-text">Fish</p>
                 </div>
               </Route>
               <Route path="*">
                 <div className="link-container">
-                  <p className="link-text">Login</p>
+                  <p className="link-text">Fish</p>
                 </div>
               </Route>
             </Switch>
           </NavLink>
-        </div>
       </nav>
     </div>
   );

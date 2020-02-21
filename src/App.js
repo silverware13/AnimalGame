@@ -25,13 +25,7 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/news">
-            <News />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/login">
+          <Route path="/identify/:group">
             <Identify />
           </Route>
         </Switch>

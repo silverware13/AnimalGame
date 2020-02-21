@@ -13,9 +13,12 @@ function Identify() {
   const [buttonAnimals, setButtonAnimals] = useState(["", "", "", ""]);
   const key = "f88afdf32072ce175c0cd9dcdec38def";
   const birdTypes = ["Sparrow", "Owl", "Robin", "Pigeon", "Duck", "Goose",
-    "Eagle", "Hummingbird", "Finche", "Chicken", "Turkey", "Parrot", "Canary", 
+    "Eagle", "Hummingbird", "Finch", "Chicken", "Turkey", "Parrot", "Canary", 
     "Dove", "Toucan", "Quail", "Heron", "Roadrunner", "Cardinal", "Gull", "Albatross",
     "Willet"];
+    const catTypes = ["Tiger", "Lion", "Lynx", "Cheetah"];
+    const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian"];
+    const fishTypes = ["Koi", "Goldfish", "Carp", "Bass"];
 
   const styleHeader = css`
     margin: auto;
