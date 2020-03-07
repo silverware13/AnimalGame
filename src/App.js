@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Identify from './pages/Identify';
+import {useState} from 'react';
 
 const globalStyles = css`
   @import url('https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet');
@@ -37,6 +38,12 @@ const globalStyles = css`
 `;
 
 function App() {
+
+  const [birdHighscore, setBirdHighscore] = useState(0);
+  const [catHighscore, setCatHighscore] = useState(0);
+  const [dogHighscore, setDogHighscore] = useState(0);
+  const [fishHighscore, setFishHighscore] = useState(0);
+
   return (
     <div>
       <Global styles={globalStyles} />
@@ -44,9 +51,10 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home birdHighscore={birdHighscore} catHighscore={catHighscore}
+              dogHighscore={dogHighscore} fishHighscore={fishHighscore}/>
           </Route>
-          <Route path="/identify/:group">
+          <Route path="/:group/Identify">
             <Identify />
           </Route>
         </Switch>

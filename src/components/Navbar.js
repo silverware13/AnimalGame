@@ -142,9 +142,23 @@ function Navbar(props) {
         <button className="close-navdrawer-button" onClick={() => {setActiveClass(false)}}> 
           &#x276E;
         </button>
-          <NavLink to="/identify/Bird">
+          <NavLink to="/">
             <Switch>
-              <Route path="/identify/Bird">
+              <Route exact path="/">
+                <div className="link-container active-link-container">
+                  <p className="link-text">Home</p>
+                </div>
+              </Route>
+              <Route path="*">
+                <div className="link-container">
+                  <p className="link-text">Home</p>
+                </div>
+              </Route>
+            </Switch>
+          </NavLink>
+          <NavLink to="/Bird/Identify">
+            <Switch>
+              <Route path="/Bird/Identify">
                 <div className="link-container active-link-container">
                   <p className="link-text">Bird</p>
                 </div>
@@ -156,9 +170,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/identify/Cat">
+          <NavLink to="/Cat/Identify">
             <Switch>
-              <Route path="/identify/Cat">
+              <Route path="/Cat/Identify">
                 <div className="link-container active-link-container">
                   <p className="link-text">Cat</p>
                 </div>
@@ -170,9 +184,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/identify/Dog">
+          <NavLink to="/Dog/Identify">
             <Switch>
-              <Route path="/identify/Dog">
+              <Route path="/Dog/Identify">
                 <div className="link-container active-link-container">
                   <p className="link-text">Dog</p>
                 </div>
@@ -184,9 +198,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/identify/Fish">
+          <NavLink to="/Fish/Identify">
             <Switch>
-              <Route path="/identify/Fish">
+              <Route path="/Fish/Identify">
                 <div className="link-container active-link-container">
                   <p className="link-text">Fish</p>
                 </div>
