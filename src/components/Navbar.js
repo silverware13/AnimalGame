@@ -13,7 +13,7 @@ function Navbar(props) {
       vertical-align: middle;
       width: 100%;
       height: 50px;
-      background-color: #3B3B3B;
+      background-color: #64785d;
     }
 
     .link-container {
@@ -26,15 +26,15 @@ function Navbar(props) {
       color: white;
       
       &:hover {
-        background-color: #D3D3D3;
-        color: #3B3B3B;
+        background-color: #a2ae9d;
+        color: #1e241b;
       }
 
     }
 
     .active-link-container {
-      background-color: #D3D3D3;
-      color: #3B3B3B;
+      background-color: #a2ae9d;
+      color: #1e241b;
     }
 
     .link-text {
@@ -66,7 +66,7 @@ function Navbar(props) {
         vertical-align: middle;
         width: 0;
         height: 3200px;
-        background-color: #3B3B3B;
+        background-color: #1e241b;
         overflow-x: hidden;
         transition: 0.5s;
       }
@@ -96,7 +96,7 @@ function Navbar(props) {
         font-family: inherit;
         font-weight: bold;
         color: white;
-        background-color: #3B3B3B;
+        background-color: #1e241b;
         border: 0;
       }
 

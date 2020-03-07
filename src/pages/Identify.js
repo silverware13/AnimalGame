@@ -15,43 +15,74 @@ function Identify() {
   const [correctAnimal, setCorrectAnimal] = useState("");
   const [buttonAnimals, setButtonAnimals] = useState(["", "", "", ""]);
   const key = "f88afdf32072ce175c0cd9dcdec38def";
+  
   const birdTypes = ["Sparrow", "Owl", "Robin", "Pigeon", "Duck", "Goose",
     "Eagle", "Hummingbird", "Finch", "Chicken", "Turkey", "Parrot", "Canary", 
     "Dove", "Toucan", "Quail", "Heron", "Roadrunner", "Cardinal", "Gull", "Albatross",
     "Willet"];
+
   const catTypes = ["Persian", "Ragdoll", "Maine Coon", "Siamese", "American Shorthair",
     "Burmese", "Himalayan", "Exotic Shorthair", "Russian Blue", "Savannah", "Scottish Fold",
     "Sphynx", "Bengal", "Manx"];
+
   const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian", "Pug", "Shiba Inu", "Golden Retriever",
     "German Shepherd", "Poodle", "Chihuahua", "Beagle", "Rottweiler", "Maltese", "Dachshund",
     "Dobermann", "Chow Chow", "Shih Tzu", "Great Dane", "Newfoundland", "Corgi", "St. Bernard",
     "Greyhound", "Border Collie", "Boston Terrier", "Dalmatian"];
+
   const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish", "Seahorse",
     "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
   const styleHeader = css`
-    margin: auto;
-    width: 50%;
-    padding: 50px;
-    text-align: center;
+    
+    & {
+      margin: auto;
+      width: 50%;
+      padding: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Raleway', Helvetica, Arial, sans-serif;
+    }
 
     #guess-image {
       margin: auto;
+      height: 400px;
+      border-radius: 30px;
     }
 
     .button-guess {
       min-width: 300px;
-      background-color: #4CAF50;
-      border: none;
+      background-color: #64785d;
+      border: 2px solid #73856d;
+      border-radius: 30px;
       color: white;
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
-      margin: 4px 2px;
+      margin: 6px 6px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
       cursor: pointer;
     }
+
+    #score {
+      font-family: 'Raleway', Helvetica, Arial, sans-serif;
+      background: #799ca2;
+      border: 2px solid #87aeb5;
+      color: white;
+      margin: 25px auto;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      font-size: 50px;
+      line-height: 100px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
   `;
 
   useEffect(() => {
@@ -70,7 +101,7 @@ function Identify() {
         `per_page=100&media=photos&format=json&nojsoncallback=1`;
   
         const results = await fetch(getUrl);
-  
+        
         if (results.ok) {
           // randomly select an image from the results
           const obj = await results.json();
@@ -111,6 +142,7 @@ function Identify() {
     }
     fetchImage(animals);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, group]);
 
   function guess(animal) {
@@ -128,7 +160,7 @@ function Identify() {
     <div css={styleHeader}>
       <img id={"guess-image"} src={image} alt="Guess this animal" />
       <h1>Identify this {group}</h1>
-      <h2>Score: {score}</h2>
+      <div id={"score"}>{score}</div>
       <div className="button-box">
         <button className="button-guess" onClick={() => guess(buttonAnimals[0])}>
           {buttonAnimals[0]}
