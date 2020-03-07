@@ -64,10 +64,10 @@ function Home(props) {
         <h1>Bird</h1>
         <img className={"silhouette"} src={bird} alt={"bird"} />
         <h3>High-score</h3>
-        <div id={"score"}>{props.birdHighscore}</div>
+        <div id={"score"}>{props.highscore.bird}</div>
         <NavLink to="/Bird">
           <button className="animal-select-button">
-            Play Bird Game
+            Bird Homepage
           </button>
         </NavLink>
       </div>
@@ -75,10 +75,10 @@ function Home(props) {
         <h1>Cat</h1>
         <img className={"silhouette"} src={cat} alt={"cat"} />
         <h3>High-score</h3>
-        <div id={"score"}>{props.catHighscore}</div>
+        <div id={"score"}>{props.highscore.cat}</div>
         <NavLink to="/Cat">
           <button className="animal-select-button">
-            Play Cat Game
+            Cat Homepage
           </button>
         </NavLink>
       </div>
@@ -86,10 +86,10 @@ function Home(props) {
         <h1>Dog</h1>
         <img className={"silhouette"} src={dog} alt={"dog"} />
         <h3>High-score</h3>
-        <div id={"score"}>{props.dogHighscore}</div>
+        <div id={"score"}>{props.highscore.dog}</div>
         <NavLink to="/Dog">
           <button className="animal-select-button">
-            Play Dog Game
+            Dog Homepage
           </button>
         </NavLink>
       </div>
@@ -97,10 +97,10 @@ function Home(props) {
         <h1>Fish</h1>
         <img className={"silhouette"} src={fish} alt={"fish"} />
         <h3>High-score</h3>
-        <div id={"score"}>{props.fishHighscore}</div>
+        <div id={"score"}>{props.highscore.fish}</div>
         <NavLink to="/Fish">
           <button className="animal-select-button">
-            Play Fish Game
+            Fish Homepage
           </button>
         </NavLink>
       </div>

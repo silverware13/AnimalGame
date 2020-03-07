@@ -3,6 +3,7 @@ import { Global, css } from '@emotion/core';
 import { Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Animal from './pages/Animal';
 import Identify from './pages/Identify';
 import {useState} from 'react';
 
@@ -39,10 +40,12 @@ const globalStyles = css`
 
 function App() {
 
-  const [birdHighscore, setBirdHighscore] = useState(0);
-  const [catHighscore, setCatHighscore] = useState(0);
-  const [dogHighscore, setDogHighscore] = useState(0);
-  const [fishHighscore, setFishHighscore] = useState(0);
+  const [highscore, setHighscore] = useState({
+    bird: 0,
+    cat: 0,
+    dog: 0,
+    fish: 0
+  })
 
   return (
     <div>
@@ -51,11 +54,13 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/">
-            <Home birdHighscore={birdHighscore} catHighscore={catHighscore}
-              dogHighscore={dogHighscore} fishHighscore={fishHighscore}/>
+            <Home highscore={highscore} />
           </Route>
           <Route path="/:group/Identify">
             <Identify />
+          </Route>
+          <Route path="/:group">
+            <Animal highscore={highscore} />
           </Route>
         </Switch>
       </main>

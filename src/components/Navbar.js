@@ -156,9 +156,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/Bird/Identify">
+          <NavLink to="/Bird">
             <Switch>
-              <Route path="/Bird/Identify">
+              <Route path="/Bird">
                 <div className="link-container active-link-container">
                   <p className="link-text">Bird</p>
                 </div>
@@ -170,9 +170,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/Cat/Identify">
+          <NavLink to="/Cat">
             <Switch>
-              <Route path="/Cat/Identify">
+              <Route path="/Cat">
                 <div className="link-container active-link-container">
                   <p className="link-text">Cat</p>
                 </div>
@@ -184,9 +184,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/Dog/Identify">
+          <NavLink to="/Dog">
             <Switch>
-              <Route path="/Dog/Identify">
+              <Route path="/Dog">
                 <div className="link-container active-link-container">
                   <p className="link-text">Dog</p>
                 </div>
@@ -198,9 +198,9 @@ function Navbar(props) {
               </Route>
             </Switch>
           </NavLink>
-          <NavLink to="/Fish/Identify">
+          <NavLink to="/Fish">
             <Switch>
-              <Route path="/Fish/Identify">
+              <Route path="/Fish">
                 <div className="link-container active-link-container">
                   <p className="link-text">Fish</p>
                 </div>
