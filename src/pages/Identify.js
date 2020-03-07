@@ -33,7 +33,7 @@ function Identify() {
   const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish", "Seahorse",
     "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
-  const styleHeader = css`
+  const style = css`
     
     & {
       margin: auto;
@@ -85,6 +85,7 @@ function Identify() {
 
   `;
 
+  // find a new image whenever the score updates
   useEffect(() => {
 
     async function fetchImage(animals) {
@@ -145,6 +146,11 @@ function Identify() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, group]);
 
+  // whenever the animal group changes reset the score
+  useEffect(() => {
+    setScore(0);
+  }, [group]);
+
   function guess(animal) {
     if(!loading) {
       if(animal === correctAnimal) {
@@ -157,7 +163,7 @@ function Identify() {
   }
 
   return (
-    <div css={styleHeader}>
+    <div css={style}>
       <img id={"guess-image"} src={image} alt="Guess this animal" />
       <h1>Identify this {group}</h1>
       <div id={"score"}>{score}</div>
