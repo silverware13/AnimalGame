@@ -4,12 +4,15 @@ import {css, jsx} from '@emotion/core';
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import PageSpinner from '../components/PageSpinner';
+import GameOver from './GameOver';
 const random = require('random');
 const shuffle = require('fisher-yates')
 
-function Identify() {
+function Identify(props) {
 
   const {group} = useParams();
+  const [gameCount, setGameCount] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
   const [score, setScore] = useState(0);
@@ -146,7 +149,7 @@ function Identify() {
     fetchImage(animals);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, group]);
+  }, [score, group, gameCount]);
 
   // whenever the animal group changes reset the score
   useEffect(() => {
@@ -158,36 +161,50 @@ function Identify() {
       if(animal === correctAnimal) {
         setScore(score + 1);
       } else {
-        setScore(0);
-        alert(`Correct answer was ${correctAnimal}`);
+        setGameOver(true);
       }
     }
   }
 
-  return (
-    <div css={style}>
-      <PageSpinner loading={loading}/>
-      <img id={"guess-image"} src={image} alt="Guess this animal" />
-      <h1>Identify this {group}</h1>
-      <div id={"score"}>{score}</div>
-      <div className="button-box">
-        <button className="button-guess" onClick={() => guess(buttonAnimals[0])}>
-          {buttonAnimals[0]}
-        </button>
-        <button className="button-guess" onClick={() => guess(buttonAnimals[1])}>
-          {buttonAnimals[1]}
-        </button>
+  function handleReset() {
+    console.log("NEW GAME");
+    setGameCount(gameCount + 1);
+    setScore(0);
+    setGameOver(false);
+  }
+
+  if(gameOver) {
+    return (
+      <GameOver score={score} correctAnimal={correctAnimal} 
+        highscore={props.highscore} image={image} onReset={() => handleReset()}/>
+    );
+  } else {
+    return (
+      <div css={style}>
+        <PageSpinner loading={loading}/>
+        <img id={"guess-image"} src={image} alt="Guess this animal" />
+        <h1>Identify this {group}</h1>
+        <div id={"score"}>{score}</div>
+        <div className="button-box">
+          <button className="button-guess" onClick={() => guess(buttonAnimals[0])}>
+            {buttonAnimals[0]}
+          </button>
+          <button className="button-guess" onClick={() => guess(buttonAnimals[1])}>
+            {buttonAnimals[1]}
+          </button>
+        </div>
+        <div className="button-box">
+          <button className="button-guess" onClick={() => guess(buttonAnimals[2])}>
+            {buttonAnimals[2]}
+          </button>
+          <button className="button-guess" onClick={() => guess(buttonAnimals[3])}>
+            {buttonAnimals[3]}
+          </button>
+        </div>
       </div>
-      <div className="button-box">
-        <button className="button-guess" onClick={() => guess(buttonAnimals[2])}>
-          {buttonAnimals[2]}
-        </button>
-        <button className="button-guess" onClick={() => guess(buttonAnimals[3])}>
-          {buttonAnimals[3]}
-        </button>
-      </div>
-    </div>
-  );
+    );
+  }
+
 }
 
 export default Identify;

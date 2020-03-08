@@ -1,37 +1,12 @@
 /** @jsx jsx */
 
 import {css, jsx} from '@emotion/core';
-import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-const random = require('random');
-const shuffle = require('fisher-yates')
+import { NavLink } from 'react-router-dom';
 
-function Gameover(props) {
+function GameOver(props) {
 
   const {group} = useParams();
-  const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState("");
-  const [score, setScore] = useState(0);
-  const [correctAnimal, setCorrectAnimal] = useState("");
-  const [buttonAnimals, setButtonAnimals] = useState(["", "", "", ""]);
-  const key = "f88afdf32072ce175c0cd9dcdec38def";
-  
-  const birdTypes = ["Sparrow", "Owl", "Robin", "Pigeon", "Duck", "Goose",
-    "Eagle", "Hummingbird", "Finch", "Chicken", "Turkey", "Parrot", "Canary", 
-    "Dove", "Toucan", "Quail", "Heron", "Roadrunner", "Cardinal", "Gull", "Albatross",
-    "Willet"];
-
-  const catTypes = ["Persian", "Ragdoll", "Maine Coon", "Siamese", "American Shorthair",
-    "Burmese", "Himalayan", "Exotic Shorthair", "Russian Blue", "Savannah", "Scottish Fold",
-    "Sphynx", "Bengal", "Manx"];
-
-  const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian", "Pug", "Shiba Inu", "Golden Retriever",
-    "German Shepherd", "Poodle", "Chihuahua", "Beagle", "Rottweiler", "Maltese", "Dachshund",
-    "Dobermann", "Chow Chow", "Shih Tzu", "Great Dane", "Newfoundland", "Corgi", "St. Bernard",
-    "Greyhound", "Border Collie", "Boston Terrier", "Dalmatian"];
-
-  const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish", "Seahorse",
-    "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
   const style = css`
     
@@ -52,7 +27,7 @@ function Gameover(props) {
       border-radius: 30px;
     }
 
-    .button-guess {
+    .button-option {
       min-width: 300px;
       background-color: #64785d;
       border: 2px solid #73856d;
@@ -68,7 +43,7 @@ function Gameover(props) {
       cursor: pointer;
     }
 
-    #score {
+    #score , #highscore {
       font-family: 'Raleway', Helvetica, Arial, sans-serif;
       background: #799ca2;
       border: 2px solid #87aeb5;
@@ -83,108 +58,61 @@ function Gameover(props) {
       text-align: center;
     }
 
+    #highscore {
+      background: #A9707F;
+      border: 2px solid #b07c85;
+    }
+
+    .score-container {
+      display: inline-block;
+      margin: 0 25px;
+    }
+
   `;
 
-  // find a new image whenever the score updates
-  useEffect(() => {
-
-    async function fetchImage(animals) {
-    
-      setLoading(true);
-      try {
-  
-        // select the correct and incorrect animals
-        setCorrectAnimal(animals[0]);
-        setButtonAnimals(shuffle([animals[0], animals[1], animals[2], animals[3]]));
-  
-        const getUrl = `https://api.flickr.com/services/rest/?method=` +
-        `flickr.photos.search&api_key=${key}&tags=${group},${animals[0]}&tag_mode=all&` +
-        `per_page=100&media=photos&format=json&nojsoncallback=1`;
-  
-        const results = await fetch(getUrl);
-        
-        if (results.ok) {
-          // randomly select an image from the results
-          const obj = await results.json();
-          const photosLength = obj.photos.photo.length;
-          const photoIndex = random.int(0, photosLength - 1);
-          console.log("Photo array size:", photosLength, " (", photoIndex + 1,")");
-          const photo = obj.photos.photo[photoIndex];
-          const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
-            `${photo.id}_${photo.secret}.jpg`
-          setImage(photoUrl);
-        } else {
-          // we got a bad status code. Show the error
-          console.log("Error, could not get photo.");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-
-    }
-
-    let animals = [];
-    switch(group) {
-      case "Bird":
-        animals = shuffle(birdTypes);
-        break;
-      case "Cat":
-        animals = shuffle(catTypes);
-        break;
-      case "Dog":
-        animals = shuffle(dogTypes);
-        break;
-      case "Fish":
-        animals = shuffle(fishTypes);
-        break;
-      default:
-        animals = shuffle(birdTypes);
-    }
-    fetchImage(animals);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, group]);
-
-  // whenever the animal group changes reset the score
-  useEffect(() => {
-    setScore(0);
-  }, [group]);
-
-  function guess(animal) {
-    if(!loading) {
-      if(animal === correctAnimal) {
-        setScore(score + 1);
-      } else {
-        setScore(0);
-        alert(`Correct answer was ${correctAnimal}`);
-      }
-    }
+  let highscore;
+  switch(group) {
+    case "Bird":
+      highscore = <div id={"highscore"}>{props.highscore.bird}</div>;
+      break;
+    case "Cat":
+      highscore = <div id={"highscore"}>{props.highscore.cat}</div>;
+      break;
+    case "Dog":
+      highscore = <div id={"highscore"}>{props.highscore.dog}</div>;
+      break;
+    case "Fish":
+      highscore = <div id={"highscore"}>{props.highscore.fish}</div>;
+      break;
+    default:
+      highscore = <div id={"highscore"}>?</div>;
   }
 
   return (
     <div css={style}>
-      <img id={"guess-image"} src={image} alt="Guess this animal" />
-      <h1>Identify this {group}</h1>
-      <div id={"score"}>{score}</div>
-      <div className="button-box">
-        <button className="button-guess" onClick={() => guess(buttonAnimals[0])}>
-          {buttonAnimals[0]}
-        </button>
-        <button className="button-guess" onClick={() => guess(buttonAnimals[1])}>
-          {buttonAnimals[1]}
-        </button>
+      <img id={"guess-image"} src={props.image} alt="Animal" />
+      <h1>Game Over</h1>
+      <h2>The correct answer was {props.correctAnimal}</h2>
+      <div>
+        <div className={"score-container"}>
+          <h3>Your score</h3>
+          <div id={"score"}>{props.score}</div>
+        </div>
+        <div className={"score-container"}>
+          <h3>High-score</h3>
+          {highscore}
+        </div>
       </div>
-      <div className="button-box">
-        <button className="button-guess" onClick={() => guess(buttonAnimals[2])}>
-          {buttonAnimals[2]}
+      <button className="button-option" onClick={() => props.onReset()}>
+        Try again
+      </button>
+      <NavLink to={`/${group}`}>
+        <button className="button-option">
+          Quit
         </button>
-        <button className="button-guess" onClick={() => guess(buttonAnimals[3])}>
-          {buttonAnimals[3]}
-        </button>
-      </div>
+      </NavLink>
     </div>
   );
 }
 
-export default Gameover;
+export default GameOver;

@@ -57,7 +57,7 @@ function App() {
             <Home highscore={highscore} />
           </Route>
           <Route path="/:group/Identify">
-            <Identify />
+            <Identify highscore={highscore}/>
           </Route>
           <Route path="/:group">
             <Animal highscore={highscore} />
