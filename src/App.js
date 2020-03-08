@@ -47,6 +47,44 @@ function App() {
     fish: 0
   })
 
+  function handleNewHighscore(score, group) {
+    switch(group) {
+      case "Bird":
+        setHighscore({
+          bird: score,
+          cat: highscore.cat,
+          dog: highscore.dog,
+          fish: highscore.fish
+        });
+        break;
+      case "Cat":
+        setHighscore({
+          bird: highscore.bird,
+          cat: score,
+          dog: highscore.dog,
+          fish: highscore.fish
+        });
+        break;
+      case "Dog":
+        setHighscore({
+          bird: highscore.bird,
+          cat: highscore.cat,
+          dog: score,
+          fish: highscore.fish
+        });
+        break;
+      case "Fish":
+        setHighscore({
+          bird: highscore.bird,
+          cat: highscore.cat,
+          dog: highscore.dog,
+          fish: score
+        });
+        break;
+      default:
+    }
+  }
+
   return (
     <div>
       <Global styles={globalStyles} />
@@ -57,7 +95,8 @@ function App() {
             <Home highscore={highscore} />
           </Route>
           <Route path="/:group/Identify">
-            <Identify highscore={highscore}/>
+            <Identify highscore={highscore} 
+              onNewHighscore={(score, group) => handleNewHighscore(score, group)} />
           </Route>
           <Route path="/:group">
             <Animal highscore={highscore} />

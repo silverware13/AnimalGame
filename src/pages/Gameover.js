@@ -3,6 +3,7 @@
 import {css, jsx} from '@emotion/core';
 import {useParams} from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import {useEffect} from 'react';
 
 function GameOver(props) {
 
@@ -69,6 +70,35 @@ function GameOver(props) {
     }
 
   `;
+
+  // if the score is higher than the high-score,
+  // then update high-score
+  useEffect(() => {
+    switch(group) {
+      case "Bird":
+        if (props.score > props.highscore.bird) {
+          props.onNewHighscore(props.score, group);
+        }
+        break;
+      case "Cat":
+        if (props.score > props.highscore.cat) {
+          props.onNewHighscore(props.score, group);
+        }
+        break;
+      case "Dog":
+        if (props.score > props.highscore.dog) {
+          props.onNewHighscore(props.score, group);
+        }
+        break;
+      case "Fish":
+        if (props.score > props.highscore.fish) {
+          props.onNewHighscore(props.score, group);
+        }
+        break;
+      default:
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.highscore, props.score]);
 
   let highscore;
   switch(group) {

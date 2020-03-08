@@ -167,7 +167,6 @@ function Identify(props) {
   }
 
   function handleReset() {
-    console.log("NEW GAME");
     setGameCount(gameCount + 1);
     setScore(0);
     setGameOver(false);
@@ -176,7 +175,8 @@ function Identify(props) {
   if(gameOver) {
     return (
       <GameOver score={score} correctAnimal={correctAnimal} 
-        highscore={props.highscore} image={image} onReset={() => handleReset()}/>
+        highscore={props.highscore} image={image} onReset={() => handleReset()}
+        onNewHighscore={(score, group) => props.onNewHighscore(score, group)} />
     );
   } else {
     return (
