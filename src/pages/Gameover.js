@@ -3,11 +3,10 @@
 import {css, jsx} from '@emotion/core';
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import PageSpinner from '../components/PageSpinner';
 const random = require('random');
 const shuffle = require('fisher-yates')
 
-function Identify() {
+function Gameover(props) {
 
   const {group} = useParams();
   const [loading, setLoading] = useState(false);
@@ -38,7 +37,7 @@ function Identify() {
     
     & {
       margin: auto;
-      width: 75%;
+      width: 50%;
       padding: 50px;
       text-align: center;
     }
@@ -48,10 +47,8 @@ function Identify() {
     }
 
     #guess-image {
-      overflow:hidden;
       margin: auto;
       height: 400px;
-      max-width: 800px;
       border-radius: 30px;
     }
 
@@ -111,8 +108,9 @@ function Identify() {
           const obj = await results.json();
           const photosLength = obj.photos.photo.length;
           const photoIndex = random.int(0, photosLength - 1);
+          console.log("Photo array size:", photosLength, " (", photoIndex + 1,")");
           const photo = obj.photos.photo[photoIndex];
-           const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
+          const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
             `${photo.id}_${photo.secret}.jpg`
           setImage(photoUrl);
         } else {
@@ -166,7 +164,6 @@ function Identify() {
 
   return (
     <div css={style}>
-      <PageSpinner loading={loading}/>
       <img id={"guess-image"} src={image} alt="Guess this animal" />
       <h1>Identify this {group}</h1>
       <div id={"score"}>{score}</div>
@@ -190,4 +187,4 @@ function Identify() {
   );
 }
 
-export default Identify;
+export default Gameover;
