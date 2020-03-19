@@ -60,7 +60,6 @@ function Search(props) {
 
   `;
 
-
   // whenever the animal group changes reset the list of breeds
   useEffect(() => {
     switch(group) {

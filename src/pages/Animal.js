@@ -17,14 +17,15 @@ function Animal(props) {
 
     & {
       margin: auto;
-      width: 50%;
-      padding: 50px;
+      width: 80%;
       text-align: center;
     }
 
     .animal-column {
+      margin: 50px auto;
       display: inline-block;
       text-align: center;
+      min-width: 500px;
     }
 
     .silhouette {
@@ -47,7 +48,6 @@ function Animal(props) {
     }
 
     .animal-function-button {
-      display: block;
       min-width: 300px;
       background-color: #64785d;
       border: 2px solid #73856d;
@@ -55,10 +55,11 @@ function Animal(props) {
       color: white;
       padding: 15px 32px;
       text-align: center;
-      font-size: 16px;
-      margin: 25px;
-      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
       text-decoration: none;
+      display: block;
+      font-size: 16px;
+      margin: 6px auto;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
       cursor: pointer;
     }
 

@@ -81,7 +81,7 @@ function Navbar(props) {
         margin: 5px;
         font-family: inherit;
         font-weight: bold;
-        background-color: white;
+        background-color: #a2ae9d;
         border: 0;
       }
 

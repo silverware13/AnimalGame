@@ -12,13 +12,16 @@ function Home(props) {
   const style = css`
 
     & {
-      margin: 50px auto;
+      margin: auto;
+      width: 100%;
+      text-align: center;
     }
 
     .animal-column {
+      margin: 50px auto;
       display: inline-block;
       text-align: center;
-      width: 25%;
+      min-width: 500px;
     }
 
     .silhouette {

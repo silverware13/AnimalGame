@@ -13,19 +13,13 @@ function GameOver(props) {
     
     & {
       margin: auto;
-      width: 50%;
+      width: 75%;
       padding: 50px;
       text-align: center;
     }
 
     h1 {
       font-family: 'Raleway', Helvetica, Arial, sans-serif;
-    }
-
-    #guess-image {
-      margin: auto;
-      height: 400px;
-      border-radius: 30px;
     }
 
     .button-option {
@@ -67,6 +61,24 @@ function GameOver(props) {
     .score-container {
       display: inline-block;
       margin: 0 25px;
+    }
+
+    #guess-image {
+      overflow: hidden;
+      margin: auto;
+      width: auto;
+      height: 400px;
+      border-radius: 30px;
+    }
+
+    @media (max-width: 768px) {
+      #guess-image {
+        overflow: hidden;
+        margin: auto;
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+      }
     }
 
   `;

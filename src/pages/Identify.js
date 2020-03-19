@@ -33,14 +33,6 @@ function Identify(props) {
       font-family: 'Raleway', Helvetica, Arial, sans-serif;
     }
 
-    #guess-image {
-      overflow: hidden;
-      margin: auto;
-      height: 400px;
-      max-width: 800px;
-      border-radius: 30px;
-    }
-
     .button-guess {
       min-width: 300px;
       background-color: #64785d;
@@ -70,6 +62,24 @@ function Identify(props) {
       line-height: 100px;
       box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
       text-align: center;
+    }
+
+    #guess-image {
+      overflow: hidden;
+      margin: auto;
+      width: auto;
+      height: 400px;
+      border-radius: 30px;
+    }
+
+    @media (max-width: 768px) {
+      #guess-image {
+        overflow: hidden;
+        margin: auto;
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+      }
     }
 
   `;
