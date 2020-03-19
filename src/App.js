@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Animal from './pages/Animal';
 import Identify from './pages/Identify';
+import Search from './pages/Search';
 import {useState} from 'react';
 
 const globalStyles = css`
@@ -39,6 +40,24 @@ const globalStyles = css`
 `;
 
 function App() {
+
+  const birdTypes = ["Sparrow", "Owl", "Robin", "Pigeon", "Duck", "Goose",
+    "Eagle", "Hummingbird", "Finch", "Chicken", "Turkey", "Parrot", "Canary", 
+    "Dove", "Toucan", "Quail", "Heron", "Roadrunner", "Cardinal", "Gull",
+    "Albatross", "Willet"];
+
+  const catTypes = ["Persian", "Ragdoll", "Maine Coon", "Siamese",
+    "American Shorthair", "Burmese", "Himalayan", "Exotic Shorthair",
+    "Russian Blue", "Savannah", "Scottish Fold", "Sphynx", "Bengal", "Manx"];
+
+  const dogTypes = ["Husky", "Labrador", "Bulldog", "Pomeranian", "Pug",
+    "Shiba Inu", "Golden Retriever", "German Shepherd", "Poodle", "Chihuahua",
+    "Beagle", "Rottweiler", "Maltese", "Dachshund", "Dobermann", "Chow Chow",
+    "Shih Tzu", "Great Dane", "Newfoundland", "Corgi", "St. Bernard",
+    "Greyhound", "Border Collie", "Boston Terrier", "Dalmatian"];
+
+  const fishTypes = ["Yellow Tang", "Clownfish", "Butterflyfish", "Lionfish",
+    "Seahorse", "Eel", "Pufferfish", "Angelfish", "Parrotfish", "Swordfish"];
 
   const [highscore, setHighscore] = useState({
     bird: 0,
@@ -96,7 +115,13 @@ function App() {
           </Route>
           <Route path="/:group/Identify">
             <Identify highscore={highscore} 
-              onNewHighscore={(score, group) => handleNewHighscore(score, group)} />
+              onNewHighscore={(score, group) => handleNewHighscore(score, group)}
+              birdTypes={birdTypes} catTypes={catTypes} dogTypes={dogTypes}
+              fishTypes={fishTypes} />
+          </Route>
+          <Route path="/:group/Search">
+            <Search birdTypes={birdTypes} catTypes={catTypes} dogTypes={dogTypes}
+              fishTypes={fishTypes} />
           </Route>
           <Route path="/:group">
             <Animal highscore={highscore} />

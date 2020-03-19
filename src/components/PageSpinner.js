@@ -23,7 +23,7 @@ function PageSpinner(props) {
     <div className="loader-container" css={style}>
       <Loader
         size={150}
-        color={"#64785d"}
+        color={"#799ca2"}
       />
     </div>
 
