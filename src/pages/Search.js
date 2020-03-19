@@ -10,7 +10,7 @@ function Search(props) {
   const {group} = useParams();
   const [loading, setLoading] = useState(false);
   const [breeds, setBreeds] = useState([]);
-  console.log(breeds);
+  const [currentBreed, setCurrentBreed] = useState("");
   const [images, setImages] = useState([]);
   const key = "f88afdf32072ce175c0cd9dcdec38def";
 
@@ -44,67 +44,22 @@ function Search(props) {
       font-size: large;
     }
 
+    .animal-image {
+      overflow: hidden;
+      margin: auto;
+      height: 400px;
+      max-width: 400px;
+      border-radius: 30px;
+    }
+
+    .image-container {
+      display: inline-block;
+      padding: 50px;
+      width: 400px;
+    }
+
   `;
 
-  // show photos of the currently selected animal
-  /*
-  useEffect(() => {
-
-    async function fetchImage(animals) {
-    
-      setLoading(true);
-      try {
-  
-        // select the correct and incorrect animals
-  
-        const getUrl = `https://api.flickr.com/services/rest/?method=` +
-        `flickr.photos.search&api_key=${key}&tags=${group},${animals[0]}&tag_mode=all&` +
-        `per_page=100&media=photos&format=json&nojsoncallback=1`;
-  
-        const results = await fetch(getUrl);
-        
-        if (results.ok) {
-          // randomly select an image from the results
-          const obj = await results.json();
-          const photosLength = obj.photos.photo.length;
-          const photoIndex = random.int(0, photosLength - 1);
-          const photo = obj.photos.photo[photoIndex];
-           const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/` +
-            `${photo.id}_${photo.secret}.jpg`
-          setImage(photoUrl);
-        } else {
-          // we got a bad status code. Show the error
-          console.log("Error, could not get photo.");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-      setLoading(false);
-
-    }
-
-    let animals = [];
-    switch(group) {
-      case "Bird":
-        animals = shuffle(birdTypes);
-        break;
-      case "Cat":
-        animals = shuffle(catTypes);
-        break;
-      case "Dog":
-        animals = shuffle(dogTypes);
-        break;
-      case "Fish":
-        animals = shuffle(fishTypes);
-        break;
-      default:
-        animals = shuffle(birdTypes);
-    }
-    fetchImage(animals);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, group, gameCount]);
-*/
 
   // whenever the animal group changes reset the list of breeds
   useEffect(() => {
@@ -127,15 +82,73 @@ function Search(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [group]);
 
+
+  // load new images when a new breed is selected
+  useEffect(() => {
+
+    if (currentBreed !== "") {
+      fetchImages(group, currentBreed);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentBreed]);
+
+  async function fetchImages(group, currentBreed) {
+  
+    setLoading(true);
+
+    try {
+
+      const getUrl = `https://api.flickr.com/services/rest/?method=` +
+      `flickr.photos.search&api_key=${key}&tags=${group},${currentBreed}&tag_mode=all&` +
+      `per_page=99&media=photos&format=json&nojsoncallback=1`;
+
+      const results = await fetch(getUrl);
+      
+      if (results.ok) {
+
+        // set the images to show
+        const obj = await results.json();
+        const photos = obj.photos.photo;
+        let photoUrls = [];
+
+        for (const element of photos) {
+          photoUrls.push(`https://farm${element.farm}.staticflickr.com/${element.server}/` +
+            `${element.id}_${element.secret}.jpg`);
+        }
+
+        setImages(photoUrls);
+
+      } else {
+        // we got a bad status code. Show the error
+        console.log("Error, could not get photo.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    setLoading(false);
+
+  }
+
+  // set the current breed when it is selected 
+  function handleSelectChange() {
+    const select = document.getElementById("animal-types-select");
+    const newBreed = select.value;
+    setCurrentBreed(newBreed);
+  }
+
   return (
     <div css={style}>
       <PageSpinner loading={loading}/>
 
       <div id="select-container">
         <h1>Select Breed</h1>
-        <select id="animal-types-select">
+        <select id="animal-types-select" defaultValue={""}
+          onChange={() => handleSelectChange()}>
+          <option value="" disabled hidden>Select a breed...</option>
           {breeds.map((breed, index) =>
-              <option value={breed}>
+              <option key={breed} value={breed}>
                 {breeds[index]}
               </option>
             )
@@ -144,7 +157,10 @@ function Search(props) {
       </div>
 
       {images.map((image) =>
-          <img id={"animal-image"} src={image} alt="Animal" />
+          <div className={"image-container"}>
+            <img key={image} className={"animal-image"} src={image}
+              alt="Animal" />
+          </div>
         )
       }
 

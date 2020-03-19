@@ -34,7 +34,7 @@ function Identify(props) {
     }
 
     #guess-image {
-      overflow:hidden;
+      overflow: hidden;
       margin: auto;
       height: 400px;
       max-width: 800px;

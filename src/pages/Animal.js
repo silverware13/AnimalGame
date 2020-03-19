@@ -118,7 +118,7 @@ function Animal(props) {
         </NavLink>
         <NavLink to={`/${group}/Search`}>
           <button className="animal-function-button">
-            Search {groupLowercase} images
+            View {groupLowercase} images
           </button>
         </NavLink>
       </div>
