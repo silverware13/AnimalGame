@@ -1,8 +1,3 @@
-# Final Project
-# Zachary Thomas
-
-**Assignment started 2/20/2020**<br>
-
 # Animal Identification Game
 
 This web application allows users to see images supplied by the Flickr API and
